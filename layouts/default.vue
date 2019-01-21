@@ -69,9 +69,9 @@
           fab
           bottom
           right
-          color="pink"
+          color="red"
         >
-          <v-icon>add</v-icon>
+          <v-icon>camera_alt</v-icon>
         </v-btn>      
         <v-dialog
           width="60%"
@@ -91,13 +91,13 @@
                 label="Please write your feedback"
               ></v-textarea>
               <v-layout
-                v-if="output"
+                v-if="screenShotUrl"
                 class="grey lighten-2"
               >
                 <v-img
                   height="300"
                   contain
-                  :src="output"
+                  :src="screenShotUrl"
                 ></v-img>
               </v-layout>         
               <v-btn
@@ -158,7 +158,8 @@
         drawer: true,
         dialog: false,
         fixed: false,
-        output: null,
+        screenShotUrl: null,
+        file: null,
         items: [
           { icon: 'apps', title: 'Welcome', to: '/' },
           { icon: 'bubble_chart', title: 'Inspire', to: '/inspire' }
@@ -173,12 +174,30 @@
       async print () {
         const el = this.$refs.printMe
         const options = {
-          type: 'dataURL',
           allowTaint: true,
           useCORS: true
         }
-        this.output = await this.$html2canvas(el, options)
+        let screenShotUrl = await this.$html2canvas(el, options)
+        // Convert canvas image to Base64
+        let img = screenShotUrl.toDataURL()
+        this.screenShotUrl = img
+        this.file = this.dataURItoBlob(img)
         this.dialog = true
+      },
+      dataURItoBlob (dataURI) {
+      // convert base64/URLEncoded data component to raw binary data held in a string
+        let byteString
+        if (dataURI.split(',')[0].indexOf('base64') >= 0) {
+          byteString = atob(dataURI.split(',')[1])
+        } else byteString = unescape(dataURI.split(',')[1])
+        // separate out the mime component
+        let mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
+        // write the bytes of the string to a typed array
+        let ia = new Uint8Array(byteString.length)
+        for (let i = 0; i < byteString.length; i++) {
+          ia[i] = byteString.charCodeAt(i)
+        }
+        return new Blob([ia], { type: mimeString })
       }
     }
   }
