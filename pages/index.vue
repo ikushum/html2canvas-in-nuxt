@@ -5,12 +5,11 @@
         <img src="/v.png" alt="Vuetify.js" class="mb-5" />
       </div>
       <v-card>
-        <v-card-title class="headline">Welcome Mr. Shrawan Paudel to this demo</v-card-title>
+        <v-card-title class="headline">Welcome! 
+          This is a html2canvas demo
+        </v-card-title>
         <v-card-text>
-          <p> Brought to you by Ishan Subedi </p>
-          <p> Brought to you by Ishan Subedi </p>
-          <p> Brought to you by Ishan Subedi </p>
-          <p> Brought to you by Ishan Subedi </p>
+          <p> Please click on the camera icon </p>
           <div class="text-xs-right">
             <em><small>&mdash; Ishan Subedi</small></em>
           </div>
