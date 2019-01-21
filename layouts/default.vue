@@ -172,9 +172,6 @@
     methods: {
       async print () {
         const el = this.$refs.printMe
-        // add option type to get the image version
-        // if not provided the promise will return
-        // the canvas.
         const options = {
           type: 'dataURL',
           allowTaint: true,
