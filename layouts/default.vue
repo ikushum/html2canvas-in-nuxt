@@ -1,6 +1,6 @@
 <template>
   <v-app
-    dark
+    light
   >
     <div
       ref="printMe"
@@ -11,6 +11,7 @@
       v-model="drawer"
       fixed
       app
+      dark
     >
       <v-list>
         <v-list-tile
@@ -29,7 +30,12 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar fixed app :clipped-left="clipped">
+    <v-toolbar
+      color="blue"
+      dark
+      fixed app
+      :clipped-left="clipped"
+      >
       <v-toolbar-side-icon @click="drawer = !drawer"></v-toolbar-side-icon>
       <v-btn
         icon
@@ -58,10 +64,10 @@
         <v-icon>menu</v-icon>
       </v-btn>
     </v-toolbar>
-    <v-content
-      class="white"
-    >
-      <v-container>
+    <v-content>
+      <v-container
+        grid-list-xl
+      >
         <v-btn
           @click="dialog = true"
           fixed
@@ -145,7 +151,7 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
-    <v-footer :fixed="fixed" app>
+    <v-footer dark :fixed="fixed" app>
       <span>&copy; {{ new Date().getFullYear() }}</span>
     </v-footer>
     </div>
@@ -156,14 +162,14 @@
   export default {
     data () {
       return {
-        clipped: false,
+        clipped: true,
         drawer: true,
         fixed: false,
         items: [
           { icon: 'apps', title: 'Welcome', to: '/' },
           { icon: 'bubble_chart', title: 'Inspire', to: '/inspire' }
         ],
-        miniVariant: false,
+        miniVariant: true,
         right: true,
         rightDrawer: false,
         title: 'Vuetify.js',
