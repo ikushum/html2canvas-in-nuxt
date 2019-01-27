@@ -173,7 +173,7 @@ export default {
         },
         {
           id: 2,
-          commented_by: { data: [] },
+          commented_by: { data: [], counts: 0 },
           liked_by: {
             data: [
               {

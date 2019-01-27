@@ -61,11 +61,11 @@
         </div>
       </v-layout>
     </v-flex> 
-    <v-divider></v-divider>
     <v-flex
-      class="very-light-blue blue-grey--text py-4 px-5"
+      class="very-light-blue blue-grey--text py-4 px-4"
     >
       <v-layout
+        class="mx-1"
         align-center
       >
         <v-avatar
@@ -78,9 +78,16 @@
           ></v-img>
         </v-avatar>
         <span
-          class="mx-3"
-          v-text="likeText"
+          class="mx-2"
+          v-html="likeText"
         ></span>
+        <v-spacer></v-spacer>
+        <a
+          v-if="post.commented_by.counts"
+          @click="$emit('toggleComment')"
+          class="mx-1 blue-grey--text"
+          v-text="`${post.commented_by.counts} Comments`"
+        ></a>        
       </v-layout>
     </v-flex>
   </div>
@@ -101,11 +108,12 @@ export default {
     likeText () {
       let text = []
       let likers = this.post.liked_by.data
-      if (this.liked) text.push('You')
-      if (likers.length > 0) text.push(likers[0].full_name)
-      if (likers.length === 2) text.push('1 other')
-      if (likers.length > 2) text.push(`${this.post.liked_by.counts - 1} others`)
-      return text.length ? 'Liked By ' + text.join(' and ') : 'Be the first person to like this notice'
+      if (this.liked) text.push('<b>You</b>')
+      if (likers.length > 0) text.push(`<b>${likers[0].full_name}</b>`)
+      text = text.join(', ')
+      if (likers.length === 2) text += ('<b> and 1 other</b>')
+      else if (likers.length > 2) text += (` and <b>${this.post.liked_by.counts - 1} others</b>`)
+      return text.length ? 'Liked by ' + text : 'Be the first person to like this notice'
     }
   },
   data () {
